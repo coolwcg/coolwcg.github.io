@@ -195,7 +195,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM操作、BOM操作、特效进阶/">DOM操作、BOM操作、特效进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js基础-、js介绍-、变量、-数据类型-、-分支结构/">js基础 、js介绍 、变量、 数据类型 、 分支结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js库、write-less-do-more/">js库、write less do more</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象编程、原型对象、继承/">面向对象编程、原型对象、继承</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM操作、BOM操作、特效进阶/">DOM操作、BOM操作、特效进阶</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js基础-、js介绍-、变量、-数据类型-、-分支结构/">js基础 、js介绍 、变量、 数据类型 、 分支结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js库、write-less-do-more/">js库、write less do more</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this/">this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象编程、原型对象、继承/">面向对象编程、原型对象、继承</a></li></ul>
                     </div>
                 </section>
                 
@@ -273,75 +273,6 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
-  
-    <article id="post-JavaScript中this指向问题" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/09/23/JavaScript中this指向问题/" class="article-date">
-      <time datetime="2018-09-23T08:49:19.925Z" itemprop="datePublished">2018-09-23</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="关于JavaScript中this关键字指向的问题"><a href="#关于JavaScript中this关键字指向的问题" class="headerlink" title="关于JavaScript中this关键字指向的问题"></a>关于JavaScript中this关键字指向的问题</h3><ol>
-<li><p>指向的是事件源</p>
-<p>假设页面中有一个按钮,我们给按钮绑定事件</p>
-</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">/* 此时的this代表的是 事件源 也就是当前绑定事件的按钮*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>读取对象中的方法时,此时的this指向当前对象</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*我们定义一个对象*/</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  a : <span class="string">'a'</span>,</span><br><span class="line">  b : <span class="string">'b'</span>,</span><br><span class="line">  c : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">/* 此时的this指向的是当前对象打印出结果为 obj*/</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*当我们访问对象中的属性c时,c是存储在当前对象中的一个方法*/</span></span><br><span class="line">obj.c();</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>未开启严格模式,全局下面的函数调用</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);<span class="comment">/*当前this指向的是函数的调用者,当前函数在全局作用下,那他的调用者是window*/</span></span><br><span class="line">&#125;</span><br><span class="line">fn()<span class="comment">/*当前函数调用fn()  等同于 window.fn()*/</span></span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>开启严格模式,全局下函数调用</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span> <span class="comment">/*开启js严格模式*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">  <span class="comment">/*当前this指向的是函数的调用者,当前函数在全局作用下,那他的调用者是window,但是由于开启严格模式之后,函数没有调用者,那当前this返回的就是undefined*/</span></span><br><span class="line">&#125;</span><br><span class="line">fn()<span class="comment">/* 也就是说当前函数的调用不严格, so   window.fn()  这样this指向的是window*/</span></span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>settimeout 与setinterval 中的this指向window</li>
-<li>call和apply可以改变this指向的问题</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数.call(a,b,c,d) <span class="comment">/*当前this指向的就是a*/</span></span><br><span class="line">函数.apply(a,[b,c,d]) <span class="comment">/*当前this指向的就是a*/</span></span><br></pre></td></tr></table></figure>
-<p>7.箭头函数中的this</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="comment">/*箭头函数预习es6*/</span></span><br><span class="line">       <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">/* 当前this指向的是window ,他指向的自身的父元素*/</span></span><br><span class="line">   &#125;, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*看如下情况*/</span></span><br><span class="line"> <span class="keyword">var</span> obj = &#123;</span><br><span class="line">            a : <span class="string">'a'</span>,</span><br><span class="line">            b : <span class="string">'b'</span>,</span><br><span class="line">            c : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="keyword">this</span>)<span class="comment">/* 此时的this指向的是当前对象打印出结果为 obj*/</span></span><br><span class="line">                &#125;, <span class="number">200</span>); </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        obj.c();</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
   
     <article id="post-JavaScript基础" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -517,6 +448,70 @@
       
         <p class="article-more-link">
           <a href="/2018/05/12/JavaScript高级/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-JavaScript中this指向问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/05/12/JavaScript中this指向问题/" class="article-date">
+      <time datetime="2018-05-12T08:04:32.000Z" itemprop="datePublished">2018-05-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/12/JavaScript中this指向问题/">关于JavaScript中this关键字指向的问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              关于JavaScript中this关键字指向的问题
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/this/">this</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2018/05/12/JavaScript中this指向问题/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
